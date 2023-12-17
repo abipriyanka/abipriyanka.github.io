@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Marketing Case Study</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            display: block;
+            padding: 0;
+            margin: 0;
+            white-space: pre;
+            font-family: 'Courier New', monospace;
+            color: #333;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <h1>CODES</h1>
+
+    <pre>
+<code>
+@author: ABI
+# Importing necessary libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, roc_curve, roc_auc_score, auc
+
+# Load the dataset
+data = pd.read_csv("bank_marketing (1) (2).csv")
+
+# Data preprocessing
+data1 = data.drop(data.columns[0], axis=1)
+data1['job'] = LabelEncoder().fit_transform(data1['job'])
+data1['marital'] = LabelEncoder().fit_transform(data1['marital'])
+data1['education'] = LabelEncoder().fit_transform(data1['education'])
+data1['default'] = LabelEncoder().fit_transform(data1['default'])
+data1['housing'] = LabelEncoder().fit_transform(data1['housing'])
+data1['loan'] = LabelEncoder().fit_transform(data1['loan'])
+data1['contact'] = LabelEncoder().fit_transform(data1['contact'])
+data1['month'] = LabelEncoder().fit_transform(data1['month'])
+data1['poutcome'] = LabelEncoder().fit_transform(data1['poutcome'])
+data1['deposit'] = LabelEncoder().fit_transform(data1['deposit'])
+scaler = StandardScaler()
+data1[['age', 'duration', 'campaign', 'pdays', 'previous', 'balance', 'day']] = scaler.fit_transform(data1[['age', 'duration', 'campaign', 'pdays', 'previous', 'balance', 'day']])
+# Classification Models
+
+# Splitting the data into features (X) and target (y)
+X = data1.drop(["deposit"], axis=1)
+y = data1["deposit"]
+
+# Train-Test Split
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# Logistic Regression
+logistic = LogisticRegression()
+logistic.fit(x_train, y_train)
+prediction = logistic.predict(x_test)
+logreg = accuracy_score(prediction, y_test) * 100
+print(f"Logistic Regression Accuracy: {logreg:.2f}%")
+
+# KNN
+KNN = KNeighborsClassifier(n_neighbors=5)
+KNN.fit(x_train, y_train)
+predictionknn = KNN.predict(x_test)
+knnscore = accuracy_score(y_test, predictionknn) * 100
+print(f"KNN Accuracy: {knnscore:.2f}%")
+
+# Decision Tree
+dtree = DecisionTreeClassifier()
+classf = dtree.fit(x_train, y_train)
+predictiondtree = classf.predict(x_test)
+dectree = accuracy_score(predictiondtree, y_test) * 100
+print(f"Decision Tree Accuracy: {dectree:.2f}%")
+
+# Random Forest
+rft = RandomForestClassifier(n_estimators=30, criterion='gini', random_state=1, max_depth=10)
+rft.fit(x_train, y_train)
+pred_rft = rft.predict(x_test)
+RanFor = accuracy_score(y_test, pred_rft) * 100
+print(f"Random Forest Accuracy: {RanFor:.2f}%")
+
+# Print the best classifier
+models = pd.DataFrame({'Models': ['Logistic Regression', 'K-Near Neighbors', 'Decision Tree Classifier', 'Random Forest Classifier'],
+                       'Score': [logreg, knnscore, dectree, RanFor]})
+
+best_model = models.sort_values(by='Score', ascending=False).iloc[0]
+print(f"The best model is {best_model['Models']} with an accuracy of {best_model['Score']:.2f}%.")
+# END OF SCRIPT
+# =============================================================================
+
+    </code>
+</pre>
+
+</body>
+
+</html>
+

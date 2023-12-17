@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Classifier System</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f3f3f3; /* Choose any plain background color */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Bookman Old Style', serif;
+            color: #000; /* Black */
+            text-align: center;
+        }
+
+        p {
+            color: #444;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: #000; /* Black */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #000; /* Black */
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #333; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Key Steps</h1>
+    <p>The code is designed to classify personal income based on various features using the K-Nearest Neighbors (KNN) algorithm. The dataset used for this classification task is loaded from a CSV file named 'income.csv.'</p>
+
+    <ol>
+        <li><strong>Data Import and Exploration:</strong>
+            <p>The script begins with importing necessary libraries and loading the dataset into a Pandas DataFrame. Initial exploration involves checking for missing values and handling them appropriately.</p>
+        </li>
+
+        <li><strong>Data Pre-processing:</strong>
+            <p>Handling missing values by dropping rows with NaN values. Reindexing the salary status to binary values (0 and 1) for classification. Utilizing one-hot encoding to convert categorical variables into numerical form. Separating input features and output variable.</p>
+        </li>
+
+        <li><strong>Data Splitting:</strong>
+            <p>Splitting the dataset into training and testing sets.</p>
+        </li>
+
+        <li><strong>K-Nearest Neighbors (KNN):</strong>
+            <p>Creating a KNN classifier with n_neighbors set to 5. Fitting the model using the training data. Making predictions on the test data.</p>
+        </li>
+
+        <li><strong>Performance Evaluation:</strong>
+            <p>Evaluating the model's performance using a confusion matrix. Calculating accuracy and identifying misclassified samples.</p>
+        </li>
+
+        <li><strong>Effect of K Value on Classifier:</strong>
+            <p>Iterating through different values of K to observe the impact on misclassification. The results are stored in the Misclassified_sample list.</p>
+        </li>
+    </ol>
+
+    <a href="knn_code.html" class="button">View Code</a>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detection</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f3f3f3; /* Choose any plain background color */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Bookman Old Style', serif;
+            color: #000; /* Black */
+            text-align: center;
+        }
+
+        p {
+            color: #444;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: #000; /* Black */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #000; /* Black */
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #333; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Introduction</h1>
+    <p>
+        Pneumonia is a prevalent respiratory infection with significant morbidity and mortality rates. Early and accurate detection of pneumonia is crucial for timely treatment and improved patient outcomes. In this project, we propose a pneumonia detection model based on deep learning techniques, specifically Convolutional Neural Networks (CNNs). The model utilizes a pre-trained CNN architecture, ResNet-18, and is trained on a dataset of chest X-ray images. We employ various data preprocessing techniques, including data augmentation and class balancing, to enhance the model's performance. The trained model is evaluated using standard evaluation metrics and the confusion matrix. The results demonstrate the potential of the proposed model for effective pneumonia detection. The model achieved a training accuracy of 100% and a testing accuracy of 91%.
+    </p>
+
+    <ol>
+        <li><strong>Introduction:</strong>
+            <ul>
+                <li><strong>Pneumonia and its Impact:</strong> Pneumonia is a widespread respiratory infection with high morbidity and mortality rates. It poses severe complications, especially for vulnerable populations such as children, the elderly, and immunocompromised individuals.</li>
+                <li><strong>Challenges in Pneumonia Diagnosis:</strong> Manual interpretation of chest X-ray images for pneumonia diagnosis is time-consuming and subjective. Automated models offer a potential solution to address these challenges and provide faster and more accurate diagnoses.</li>
+                <li><strong>Role of Deep Learning and CNNs:</strong> Deep learning techniques, particularly Convolutional Neural Networks (CNNs), have revolutionized computer vision tasks. CNNs are well-suited for analyzing complex visual patterns, making them suitable for pneumonia detection in chest X-ray images.</li>
+                <li><strong>Pre-trained Models for Pneumonia Detection:</strong> Leveraging pre-trained models like ResNet-18, which have learned feature representations from large-scale image datasets, accelerates the learning process. Fine-tuning these models on pneumonia-specific datasets enhances detection performance.</li>
+            </ul>
+        </li>
+        <li><strong>Training:</strong>
+            <p>
+                In the training phase, the model is trained using the training set to learn the patterns and features necessary to classify the images correctly. The stochastic gradient descent (SGD) optimization algorithm is used to update the weights of the ResNet-18 model during training.
+            </p>
+            <p>
+                <strong>Forward Pass:</strong> During each iteration of the training loop, a mini-batch of training examples is fed into the model. The model performs a forward pass, computing the predicted probabilities for each class based on the current weights.
+            </p>
+            <p>
+                <strong>Loss Computation:</strong> The predicted probabilities are compared with the ground truth labels using the Cross Entropy Loss function. The loss measures the dissimilarity between the predicted probabilities and the actual labels.
+            </p>
+            <p>
+                <strong>Backpropagation:</strong> The gradients of the loss with respect to the model parameters (weights and biases) are computed using backpropagation. This involves calculating the derivatives of the loss with respect to each parameter in the network.
+            </p>
+            <p>
+                <strong>Parameter Update:</strong> The optimizer (SGD) updates the model parameters by subtracting a scaled version of the gradients. The scaling factor is determined by the learning rate, which controls the step size taken in the parameter space. The momentum parameter, set to 0.9, helps the optimizer to continue moving in the same direction if the gradients are consistently pointing in the same direction.
+            </p>
+            <p>
+                <strong>Iteration:</strong> The process of forward pass, loss computation, backpropagation, and parameter update are repeated for each mini-batch in the training set. This iterative process allows the model to gradually adjust its weights to minimize the loss and improve its performance.
+            </p>
+        </li>
+        
+        <li><strong>Validation:</strong>
+            <p>
+                Validation is performed during training to monitor the model's performance on unseen data and avoid overfitting. The model's performance on the validation set is monitored throughout training, and the best model is selected based on the highest validation accuracy or the lowest validation loss.
+            </p>
+            <p>
+                <strong>Model Evaluation:</strong> After each training epoch, the model's performance is evaluated on the validation set. The model is switched to the evaluation mode, disabling operations like dropout and batch normalization, which are typically used during training.
+            </p>
+            <p>
+                <strong>Forward Pass and Metrics Calculation:</strong> The validation set is passed through the model, and the predicted probabilities for each example are computed. Evaluation metrics, such as accuracy, loss, and other relevant metrics, are calculated based on the predicted probabilities and the ground truth labels of the validation set.
+            </p>
+            <p>
+                <strong>Model Selection:</strong> The model's performance on the validation set is monitored throughout training. The best model is typically selected based on the highest validation accuracy or the lowest validation loss. This selection process helps prevent overfitting and ensures the model generalizes well to unseen data.
+            </p>
+        </li>
+        <li><strong>Evaluation Metrics:</strong>
+            <ul>
+                <li><strong>Accuracy, Sensitivity, Specificity:</strong></li>
+                <p>
+                    <strong>Accuracy:</strong> Accuracy measures the overall correctness of the model's predictions by calculating the ratio of correctly classified samples to the total number of samples.
+                </p>
+                <p>
+                    <strong>Sensitivity (Recall or True Positive Rate):</strong> Sensitivity measures the model's ability to correctly identify positive cases (pneumonia) out of all actual positive cases.
+                </p>
+                <p>
+                    <strong>Specificity:</strong> Specificity measures the model's ability to correctly identify negative cases (normal) out of all actual negative cases.
+                </p>
+        
+                <li><strong>Confusion Matrix for Performance Analysis:</strong></li>
+                <p>
+                    The confusion matrix is a tabular representation that visually summarizes the performance of a classification model. It shows the distribution of predicted labels against the true labels. By analyzing the confusion matrix, we can identify the number of true positive, true negative, false positive, and false negative predictions made by the model. This analysis helps in understanding the model's strengths and weaknesses and provides insights into areas for improvement.
+                </p>
+            </ul>
+        </li>
+        
+        <a href="pneumonia_code.html" class="button">View Code</a>
+                
+           

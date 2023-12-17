@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Means Clustering</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            display: block;
+            padding: 0;
+            margin: 0;
+            white-space: pre;
+            font-family: 'Courier New', monospace;
+            color: #333;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <h1>CODES</h1>
+
+    <pre>
+<code>
+@author: ABI
+
+#!/usr/bin/env python
+# coding: utf-8
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans, AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.datasets import make_blobs
+
+# Load data
+data = pd.read_csv("D:\C Backup\Downloads\Airlines.csv")
+
+# Drop unnecessary column
+data.drop(labels='FFP#', axis=1, inplace=True)
+
+# Plot histograms and scatter plots
+units = ["miles", *["miles"] * 3, "miles", "miles", "days"]
+for i in range(len(data.columns)):
+    data[data.columns[i]].plot(kind="hist", bins=10, figsize=(5, 5))
+    plt.xlabel(f"{data.columns[i]} (in {units[i]})")
+    plt.title(f"Distribution of {data.columns[i]}")
+    plt.show()
+
+for i in range(len(data.columns)):
+    for j in range(i):
+        data.plot(x=data.columns[i], y=data.columns[j], kind="scatter", figsize=(4, 4))
+        plt.xlabel(f"{data.columns[i]} (in {units[i]})")
+        plt.ylabel(f"{data.columns[j]} (in {units[j]})")
+        plt.title(f"Scatter Plot - {data.columns[j]} vs {data.columns[i]}")
+        plt.show()
+
+sns.pairplot(data)
+sns.heatmap(np.abs(data.corr()), annot=True)
+
+# Standardize the data
+air_data = data.copy()
+scaler = StandardScaler()
+for col_name in air_data.columns:
+    air_data[col_name] = scaler.fit_transform(np.array(air_data[col_name]).reshape(-1, 1))
+
+# Determine the optimal number of clusters using an elbow plot
+wcss = []
+k = list(range(1, 11))
+for i in k:
+    kmeans_cluster = KMeans(n_clusters=i)
+    kmeans_cluster.fit(air_data)
+    wcss.append(kmeans_cluster.inertia_)
+
+# Plot the elbow plot
+plt.figure(figsize=(8, 6))
+plt.plot(k, wcss, 'go--')
+plt.xlabel('Number of Centroids')
+plt.ylabel('Within cluster sum-of-squares')
+plt.title('Elbow Plot')
+
+# Fit K-means clustering with the optimal number of clusters
+kmeans_optimal = KMeans(n_clusters=5)
+kmeans_optimal.fit(air_data)
+
+# Predict clusters and add to the original data
+y_pred = kmeans_optimal.predict(air_data)
+data['Cluster5'] = y_pred + 1
+
+# Create a dataframe of centroids for the clusters
+centroids_data = pd.DataFrame(kmeans_optimal.cluster_centers_, columns=air_data.columns,
+                               index=range(1, max(data['Cluster5'] + 1)))
+
+# Plot scatterplot labeled with clusters
+fig1 = plt.figure(figsize=(8, 8))
+for i in range(len(air_data.columns)):
+    for j in range(i):
+        fig1 = sns.scatterplot(x=data[data.columns[i]], y=data[data.columns[j]], hue=data["Cluster5"], palette="bright")
+        plt.xlabel(f"{data.columns[i]} (in {units[i]})")
+        plt.ylabel(f"{data.columns[j]} (in {units[j]})")
+        plt.title(f"Scatter Plot - {data.columns[j]} vs {data.columns[i]}")
+        plt.show()
+
+# Bar plots for cluster characteristics
+air_data_AwardMiles = pd.DataFrame(data.groupby('Cluster5')['AwardMiles'].mean())
+# ... Repeat for other variables ...
+
+# Combine and display the cluster characteristics
+df = pd.concat([pd.Series(['NaN', 0, 1, 2, 3, 4]), air_data_AwardMiles,
+                # ... Repeat for other variables ...
+                ], axis=1)
+df.columns = ['Cluster5', 'AwardMiles',
+              # ... Repeat for other variables ...
+              ]
+
+# Display bar plots for each variable
+sns.barplot(data=df, x='Cluster5', y='AwardMiles')
+# ... Repeat for other variables ...
+
+# Hierarchical clustering dendrogram
+cluster = linkage(air_data, method='single')
+plt.figure(figsize=(8, 6))
+dendrogram(cluster)
+plt.show()
+
+# Hierarchical clustering scatter plot
+cluster = AgglomerativeClustering(n_clusters=5, affinity='euclidean', linkage='ward')
+cluster.fit_predict(air_data)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X[:, 0], X[:, 1], c=cluster.labels_)
+plt.show()
+
+</code>
+</pre>
+
+</body>
+
+</html>

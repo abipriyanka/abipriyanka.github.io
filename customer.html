@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Segmentation</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Bookman Old Style', serif;
+            color: #000;
+            text-align: center;
+        }
+
+        p {
+            color: #444;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: #000;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #000;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CUSTOMER SEGMENTATION</h1>
+    
+    <p><strong>DATA DESCRIPTION:</strong></p>
+    <ul>
+        <li>3999 rows with 8 attributes</li>
+        <li>All variables are of type integer</li>
+        <li>No null values present</li>
+    </ul>
+
+    <h2>EXPLORATORY DATA ANALYSIS</h2>
+    <p>Scatter plot between enroll duration and all other variables</p>
+
+    <h2>K-MEANS CLUSTERING</h2>
+    <p>Using the elbow plot, the number of clusters for k-means clustering is predefined.</p>
+    <p>Samples from scatter plots provide a pictorial representation of clusters.</p>
+
+    <h3>Cluster Details:</h3>
+    <ul>
+        <li>Cluster 2 requires the highest number of miles for award travel eligibility</li>
+        <li>Cluster 4 has the highest eligibility for elite miles</li>
+        <li>Cluster 0 earned the highest number of miles from transactions using partner flights</li>
+        <li>Cluster 2 has the highest number of transactions in partner flights within 12 months</li>
+        <li>Cluster 2 has the highest number of flight miles in the past 12 months</li>
+        <li>Cluster 2 has the highest number of flight transactions in the past 12 months</li>
+        <li>Cluster 3 consists of customers who have enrolled for a long time</li>
+    </ul>
+
+    <h2>HIERARCHICAL CLUSTERING</h2>
+    <p>The dendrogram helps in finding the optimum number of clusters; here, the optimum number is 5.</p>
+
+    <a href="customer_code.html" class="button">View Code</a>
+</body>
+
+</html>

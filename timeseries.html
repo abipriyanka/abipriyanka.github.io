@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Time Series Analysis</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f3f3f3; /* Choose any plain background color */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Bookman Old Style', serif;
+            color: #000; /* Black */
+            text-align: center;
+        }
+
+        p {
+            color: #444;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: #000; /* Black */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #000; /* Black */
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #333; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Temperature Time Series Analysis</h1>
+    <p>Source: Kaggle<br>
+        The dataset contains average daily temperatures of Chennai, Tamil Nadu collected from the year 1990 to 2022. It has five parameters: Time, Average temperature (tavg), Minimum temperature(tmin), Maximum temperature(tmax), and precipitation(prcp).</p>
+
+    <h2>Data Preprocessing</h2>
+    <p>The dataset is loaded, and the 'time' and 'tavg' columns are selected. The 'time' column is converted to a datetime format, and the index is set to the 'time' column. Missing values are dropped, and the data is resampled to a monthly frequency.</p>
+
+    <h2>Exploratory Data Analysis</h2>
+    <p>Several EDA techniques are applied to understand the data better.</p>
+    <ol>
+        <li><strong>Augmented Dickey-Fuller (ADF) Test:</strong>
+            <p>The ADF test is performed to check the stationarity of the time series data. The original temperature data and the seasonally differenced data are tested.</p>
+            <ul>
+                <li>ADF test p-value: The p-value associated with the ADF test is 0.039283685...</li>
+                <li>Number of lags: The number of lags used in the ADF test is 12...</li>
+            </ul>
+        </li>
+        <li><strong>Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) Plots:</strong>
+            <p>ACF and PACF plots are generated to analyze the correlation in the differenced data. These plots help determine the values for p, d, and q in the ARIMA model.</p>
+        </li>
+        <li><strong>ARIMA Model:</strong>
+            <p>An ARIMA (1, 1, 1) model is built using the 'tavg' data. The model summary is displayed, providing information about the coefficients, standard errors, p-values, and other relevant statistics. A line plot is created to visualize the actual 'tavg' values and the predicted values.</p>
+        </li>
+        <li><strong>Seasonal ARIMA (SARIMA) Model:</strong>
+            <p>A seasonal ARIMA (1, 1, 1) (1, 1, 1, 12) model is built using the 'tavg' data. The model summary is displayed. A line plot is created to visualize the actual 'tavg' values and the forecasted values.</p>
+            <ul>
+                <li>Model Specification: The ARIMA model only includes the ARIMA components (p, d, q), while the SARIMA model includes additional seasonal components (P, D, Q, s).</li>
+                <li>Log Likelihood and AIC: The SARIMAX model has a lower Log Likelihood (-483.750) and AIC (977.500) compared to the ARIMA model...</li>
+                <li>Coefficients: The coefficient values differ between the two models, indicating different relationships and influences on the dependent variable...</li>
+                <li>sigma2: The estimated variances (sigma2) differ...</li>
+                <li>Jarque-Bera Test: The JB statistic is 0.46 for the ARIMA model...</li>
+                <li>Heteroskedasticity: The Heteroskedasticity value is 0.91 for the ARIMA model...</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Report Summary:</h2>
+    <p>The analysis begins with data preprocessing, ensuring the data is in the correct format and handling missing values. EDA techniques provide insights into the temperature data, including yearly and monthly trends. Seasonal decomposition helps identify the trend, seasonality, and residuals. The ADF test is performed to check the stationarity of the data, and the differenced data is used to generate ACF and PACF plots. Based on the analysis, both ARIMA and SARIMA models are built. The ARIMA model captures the non-seasonal components, while the SARIMA model accounts for both non-seasonal and seasonal components. The models' performance is evaluated by comparing the actual and predicted/forecasted values.</p>
+
+    <p>Overall, the analysis provides valuable insights into the temperature data, captures the underlying patterns, and generates forecasts using the ARIMA and SARIMA models.</p>
+
+    <a href="timeseries_code.html" class="button">View Code</a>
+</body>
+</html>
